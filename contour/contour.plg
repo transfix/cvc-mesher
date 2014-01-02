@@ -1,0 +1,162 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: contour - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\CHANDR~1\LOCALS~1\Temp\RSP5A3.tmp" with contents
+[
+/nologo /MDd /W3 /GX /Zi /Od /I "C:\Qt\3.3.3Educational\include" /I "D:\users\transfix\VolumeRover\libcontour" /I "d:\Qt\3.3.3Educational\mkspecs\win32-msvc" /D "WIN32" /D "_DEBUG" /D "_LIB" /D "UNICODE" /D "_BOOL" /D "SP2" /D "USEDICT" /D "NDEBUG" /D "_LITTLE_ENDIAN" /D "QT_DLL" /D "QT_THREAD_SUPPORT" /Fo"Debug/" /Fd"Debug/" /FD /GZ -Zm200 /c 
+"C:\users\VolumeRover\libcontour\bin.cpp"
+"C:\users\VolumeRover\libcontour\bucketsearch.cpp"
+"C:\users\VolumeRover\libcontour\cellqueue.cpp"
+"C:\users\VolumeRover\libcontour\conplot.cpp"
+"C:\users\VolumeRover\libcontour\conplot2d.cpp"
+"C:\users\VolumeRover\libcontour\conplot3d.cpp"
+"C:\users\VolumeRover\libcontour\conplot_p.cpp"
+"C:\users\VolumeRover\libcontour\conplotreg2.cpp"
+"C:\users\VolumeRover\libcontour\conplotreg3.cpp"
+"C:\users\VolumeRover\libcontour\contour.cpp"
+"C:\users\VolumeRover\libcontour\contour2d.cpp"
+"C:\users\VolumeRover\libcontour\contour3d.cpp"
+"C:\users\VolumeRover\libcontour\cubes.cpp"
+"C:\users\VolumeRover\libcontour\data.cpp"
+"C:\users\VolumeRover\libcontour\datareg2.cpp"
+"C:\users\VolumeRover\libcontour\datareg3.cpp"
+"C:\users\VolumeRover\libcontour\dataslc.cpp"
+"C:\users\VolumeRover\libcontour\datavol.cpp"
+"C:\users\VolumeRover\libcontour\dict.c"
+"C:\users\VolumeRover\libcontour\dirseeds.cpp"
+"C:\users\VolumeRover\libcontour\dirseedsreg2.cpp"
+"C:\users\VolumeRover\libcontour\edgehash.cpp"
+"C:\users\VolumeRover\libcontour\hash.cpp"
+"C:\users\VolumeRover\libcontour\inttree.cpp"
+"C:\users\VolumeRover\libcontour\ipqueue.cpp"
+"C:\users\VolumeRover\libcontour\iqueue.cpp"
+"C:\users\VolumeRover\libcontour\queue.cpp"
+"C:\users\VolumeRover\libcontour\range.cpp"
+"C:\users\VolumeRover\libcontour\rangeprop.cpp"
+"C:\users\VolumeRover\libcontour\rangesweep.cpp"
+"C:\users\VolumeRover\libcontour\regprop.cpp"
+"C:\users\VolumeRover\libcontour\regprop2.cpp"
+"C:\users\VolumeRover\libcontour\respprop2.cpp"
+"C:\users\VolumeRover\libcontour\seedall.cpp"
+"C:\users\VolumeRover\libcontour\seedcells.cpp"
+"C:\users\VolumeRover\libcontour\seedchkr2.cpp"
+"C:\users\VolumeRover\libcontour\seedchkr3.cpp"
+"C:\users\VolumeRover\libcontour\seeddirreg3.cpp"
+"C:\users\VolumeRover\libcontour\segtree.cpp"
+"C:\users\VolumeRover\libcontour\shelf.cpp"
+"C:\users\VolumeRover\libcontour\spectrumtest.cpp"
+"C:\users\VolumeRover\libcontour\squeue.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\CHANDR~1\LOCALS~1\Temp\RSP5A3.tmp" 
+Creating temporary file "C:\DOCUME~1\CHANDR~1\LOCALS~1\Temp\RSP5A4.tmp" with contents
+[
+/nologo /out:"Debug\contour.lib" 
+.\Debug\bin.obj
+.\Debug\bucketsearch.obj
+.\Debug\cellqueue.obj
+.\Debug\conplot.obj
+.\Debug\conplot2d.obj
+.\Debug\conplot3d.obj
+.\Debug\conplot_p.obj
+.\Debug\conplotreg2.obj
+.\Debug\conplotreg3.obj
+.\Debug\contour.obj
+.\Debug\contour2d.obj
+.\Debug\contour3d.obj
+.\Debug\cubes.obj
+.\Debug\data.obj
+.\Debug\datareg2.obj
+.\Debug\datareg3.obj
+.\Debug\dataslc.obj
+.\Debug\datavol.obj
+.\Debug\dict.obj
+.\Debug\dirseeds.obj
+.\Debug\dirseedsreg2.obj
+.\Debug\edgehash.obj
+.\Debug\hash.obj
+.\Debug\inttree.obj
+.\Debug\ipqueue.obj
+.\Debug\iqueue.obj
+.\Debug\queue.obj
+.\Debug\range.obj
+.\Debug\rangeprop.obj
+.\Debug\rangesweep.obj
+.\Debug\regprop.obj
+.\Debug\regprop2.obj
+.\Debug\respprop2.obj
+.\Debug\seedall.obj
+.\Debug\seedcells.obj
+.\Debug\seedchkr2.obj
+.\Debug\seedchkr3.obj
+.\Debug\seeddirreg3.obj
+.\Debug\segtree.obj
+.\Debug\shelf.obj
+.\Debug\spectrumtest.obj
+.\Debug\squeue.obj
+]
+Creating command line "link.exe -lib @C:\DOCUME~1\CHANDR~1\LOCALS~1\Temp\RSP5A4.tmp"
+<h3>Output Window</h3>
+Compiling...
+bin.cpp
+bucketsearch.cpp
+cellqueue.cpp
+conplot.cpp
+conplot2d.cpp
+conplot3d.cpp
+conplot_p.cpp
+conplotreg2.cpp
+conplotreg3.cpp
+contour.cpp
+contour2d.cpp
+contour3d.cpp
+cubes.cpp
+data.cpp
+datareg2.cpp
+datareg3.cpp
+dataslc.cpp
+datavol.cpp
+Generating Code...
+Compiling...
+dict.c
+Generating Code...
+Compiling...
+dirseeds.cpp
+dirseedsreg2.cpp
+edgehash.cpp
+hash.cpp
+inttree.cpp
+ipqueue.cpp
+iqueue.cpp
+queue.cpp
+range.cpp
+rangeprop.cpp
+rangesweep.cpp
+regprop.cpp
+regprop2.cpp
+respprop2.cpp
+seedall.cpp
+seedcells.cpp
+seedchkr2.cpp
+seedchkr3.cpp
+seeddirreg3.cpp
+segtree.cpp
+Generating Code...
+Compiling...
+shelf.cpp
+spectrumtest.cpp
+squeue.cpp
+Generating Code...
+Creating library...
+
+
+
+<h3>Results</h3>
+contour.lib - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

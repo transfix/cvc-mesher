@@ -1,0 +1,68 @@
+.SUFFIXES: .cpp
+
+PROGNAME = testlib
+
+LIBNAME = libcontour.a
+#
+# To debug with purify set the following variable to: purify
+#
+PURIFY = 
+#PURIFY = purify -purify-home=/lusr/pure/purify-4.1-irix6/
+#
+# CCVHOME is the ccv repository, I have a environment variable for it
+#
+
+C++FILES =  contour.cpp edgehash.cpp cellqueue.cpp range.cpp seedcells.cpp \
+	    data.cpp dataslc.cpp datavol.cpp segtree.cpp contour2d.cpp \
+	    contour3d.cpp conplot_p.cpp conplot.cpp conplot2d.cpp queue.cpp \
+            squeue.cpp rangeprop.cpp conplot3d.cpp rangesweep.cpp \
+            datareg2.cpp conplotreg2.cpp dirseeds.cpp inttree.cpp \
+            bucketsearch.cpp datareg3.cpp conplotreg3.cpp regprop.cpp \
+	    dirseedsreg2.cpp regprop2.cpp seedchkr2.cpp seedchkr3.cpp \
+            seedall.cpp respprop2.cpp seeddirreg3.cpp cubes.cpp
+
+
+O++FILES =  contour.o contour2d.o contour3d.o range.o data.o \
+            dataslc.o datavol.o edgehash.o cellqueue.o queue.o squeue.o \
+            seedcells.o segtree.o conplot_p.o conplot.o conplot2d.o \
+            rangeprop.o conplot3d.o rangesweep.o datareg2.o conplotreg2.o \
+	    dirseeds.o inttree.o bucketsearch.o datareg3.o conplotreg3.o \
+	    regprop.o dirseedsreg2.o regprop2.o seedchkr2.o seedchkr3.o \
+	    seedall.o respprop2.o seeddirreg3.o cubes.o
+
+CXXINCLUDES = 
+
+CXXFLAGS = -Wall -Wno-non-template-friend -O2 -D_BOOL -D_LITTLE_ENDIAN -DSP2 -DUSEDICT
+CFLAGS = -O2 -DNDEBUG
+
+CC = gcc $(CFLAGS)
+CXX = g++ $(CXXFLAGS)
+
+default: all
+
+all:	$(LIBNAME) $(PROGNAME)
+
+$(PROGNAME): main.o $(LIBNAME)
+	$(PURIFY) $(CXX) -o $(PROGNAME) main.o $(LIBNAME) -lm
+
+
+# this creates an archive in which all templates are instanciated
+$(LIBNAME): $(O++FILES) dict.o
+	ar rv $(LIBNAME) $(O++FILES) dict.o
+
+rmobj:
+	rm -f $(O++FILES) dict.o main.o
+
+.cpp.o: 
+	$(PURIFY) $(CXX) -c $(CXXINCLUDES) $*.cpp
+
+dict.o:
+	$(CC) -c dict.c	
+
+clean:
+	rm -f $(O++FILES) dict.o main.o $(LIBNAME) $(PROGNAME)
+
+depend:
+	mkdepend -c "$(CXX) -M $(CXXINCLUDES)" Makefile $(C++FILES) dict.c
+
+

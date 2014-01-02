@@ -1,0 +1,12 @@
+To compile libcontour:
+
+For big endean architectures:
+1. cp Makefile.sgi Makefile
+2. make
+
+For little endean architectures:
+1. cp Makefile.linux Makefile
+2. make
+
+
+
