@@ -29,7 +29,7 @@ template<class T> class Shelf;
 
 template<class T> class ShelfItem {
   friend class Shelf<T>;
-  friend std::ostream& operator<<(std::ostream &os, const Shelf<T>& s);
+  //friend std::ostream& operator<<(std::ostream &os, const Shelf<T>& s);
 private:
   T data;
   int prev;
@@ -104,7 +104,7 @@ public:
   void prev(int &index) const;
 
   // for debugging
-  friend std::ostream& operator<<(std::ostream &os, const Shelf<T>& s);
+  //  friend std::ostream& operator<<(std::ostream &os, const Shelf<T>& s);
 
 private:
   void grow();				// allocate more memory

@@ -43,7 +43,7 @@ struct RawIVHeader
   unsigned int dim[3];
   float origin[3];
   float span[3];
-} rawivHeader;
+};
 
 namespace VolMagick
 {
