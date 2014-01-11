@@ -249,6 +249,11 @@ namespace VolMagick
 
     virtual Voxels& anisotropicDiffusion(unsigned int iterations = 20);
 
+    //special access to the shared array - careful with this!
+    // 01/11/2014 - Joe R. - creation
+    const boost::shared_array<unsigned char>& data() const { return _voxels; }
+    boost::shared_array<unsigned char>& data() { return _voxels; }
+
   protected:
     void calcMinMax() const;
     void preWriteCopy()

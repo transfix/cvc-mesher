@@ -3,8 +3,8 @@ CONFIG += warn_on thread rtti exceptions console
 CONFIG -= qt
 TARGET = mesher
 
-SOURCES = main.cpp
-HEADERS =
+SOURCES = main.cpp mesher.cpp
+HEADERS = mesher.h
 
 QMAKE_CXXFLAGS += $$(CPPFLAGS)
 QMAKE_LFLAGS += $$(LDFLAGS)

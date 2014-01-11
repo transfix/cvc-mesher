@@ -2,20 +2,20 @@
 #include <string>
 #include <cstdlib>
 #include <VolMagick.h>
-#include <LBIE_Mesher.h>
+#include <Exceptions.h>
+#include <mesher.h>
 #include <boost/program_options.hpp>
 #include <stdexcept>
 
-using namespace std;
-namespace po = boost::program_options;
-
 int main(int argc, char **argv)
 {
-  LBIE::Mesher mesher;
+  using namespace std;
+  namespace po = boost::program_options;
 
   float isovalue, isovalue_in, err, err_in;
   string input_file, output_file;
   string operation, meshtype, improve_method, normaltype, extract_method;
+  bool dual_contouring;
   int improve_iterations;
 
   try{
@@ -75,119 +75,25 @@ int main(int argc, char **argv)
 	return EXIT_FAILURE;
       }
 
+    dual_contouring = bool(vm.count("dual"));
+
     if(operation == "mesh")
       {
-	cout << "isovalue: " << isovalue << endl;
-	cout << "inner_isovalue: " << isovalue_in << endl;
-	cout << "error: " << err << endl;
-	cout << "inner_error: " << err_in << endl;
-	cout << "mesh_type: " << meshtype << endl;
-	cout << "improvement_method: " << improve_method << endl;
-	cout << "iterations: " << improve_iterations << endl;
-	cout << "normal_type: " << normaltype << endl;
-	cout << "dual: " << (vm.count("dual") ? "true" : "false") << endl;
-
-	mesher.isovalue(isovalue);
-	mesher.isovalue_in(isovalue_in);
-	mesher.err(err);
-	mesher.err_in(err_in);
-      
-	LBIE::Mesher::MeshType mt;
-	if(meshtype == "single") mt = LBIE::Mesher::SINGLE;
-	else if(meshtype == "tetra") mt = LBIE::Mesher::TETRA;
-	else if(meshtype == "quad") mt = LBIE::Mesher::QUAD;
-	else if(meshtype == "hexa") mt = LBIE::Mesher::HEXA;
-	else if(meshtype == "double") mt = LBIE::Mesher::DOUBLE;
-	else if(meshtype == "tetra2") mt = LBIE::Mesher::TETRA2;
-	else
-	  {
-	    cerr << "Error: invalid mesh type!" << endl;
-	    return EXIT_FAILURE;
-	  }
-	mesher.meshType(mt);
-
-	LBIE::Mesher::ExtractionMethod em;
-	if(extract_method == "duallib") em = LBIE::Mesher::DUALLIB;
-	else if(extract_method == "fastcontouring") em = LBIE::Mesher::FASTCONTOURING;
-	else if(extract_method == "libisocontour") em = LBIE::Mesher::LIBISOCONTOUR;
-	else
-	  {
-	    cerr << "Error: invalid mesh extraction method!" << endl;
-	    return EXIT_FAILURE;
-	  }
-	mesher.extractionMethod(em);
-      
-	LBIE::Mesher::ImproveMethod im;
-	if(improve_method == "no_improve") im = LBIE::Mesher::NO_IMPROVE;
-	else if(improve_method == "geo_flow") im = LBIE::Mesher::GEO_FLOW;
-	else if(improve_method == "edge_contract") im = LBIE::Mesher::EDGE_CONTRACT;
-	else if(improve_method == "joe_liu") im = LBIE::Mesher::JOE_LIU;
-	else if(improve_method == "minimal_vol") im = LBIE::Mesher::MINIMAL_VOL;
-	else if(improve_method == "optimization") im = LBIE::Mesher::OPTIMIZATION;
-	else
-	  {
-	    cerr << "Error: invalid quality improvement method!" << endl;
-	    return EXIT_FAILURE;
-	  }
-	mesher.improveMethod(im);
-
-	LBIE::Mesher::NormalType nt;
-	if(normaltype == "bspline_convolution") nt = LBIE::Mesher::BSPLINE_CONVOLUTION;
-	else if(normaltype == "central_difference") nt = LBIE::Mesher::CENTRAL_DIFFERENCE;
-	else if(normaltype == "bspline_interpolation") nt = LBIE::Mesher::BSPLINE_INTERPOLATION;
-	else
-	  {
-	    cerr << "Error: invalid normal type!" << endl;
-	    return EXIT_FAILURE;
-	  }
-	mesher.normalType(nt);
-      
-	mesher.dual(bool(vm.count("dual")));
-
 	VolMagick::Volume vol;
 	VolMagick::readVolumeFile(vol,input_file);
-      
-	mesher.extractMesh(vol); //sets the internal geoframe to the extracted mesh
-	mesher.qualityImprove(improve_iterations);
-
-	LBIE::geoframe g_frame = mesher.mesh(); //get the mesh
-	g_frame.write_raw(output_file.c_str()); //write it out using geoframe's I/O
-
+	LBIE::geoframe g_frame = LBIE::do_mesh(vol,
+					       isovalue, isovalue_in, err, err_in,
+					       meshtype, improve_method, normaltype, extract_method,
+					       improve_iterations, dual_contouring, true);
+	g_frame.write_raw(output_file.c_str());
 	cout << "Wrote mesh: " << output_file << endl;
       }
     else if(operation == "quality_improve")
       {
-	cout << "improvement_method: " << improve_method << endl;
-	cout << "iterations: " << improve_iterations << endl;
-
-	LBIE::Mesher::ImproveMethod im;
-	if(improve_method == "no_improve") im = LBIE::Mesher::NO_IMPROVE;
-	else if(improve_method == "geo_flow") im = LBIE::Mesher::GEO_FLOW;
-	else if(improve_method == "edge_contract") im = LBIE::Mesher::EDGE_CONTRACT;
-	else if(improve_method == "joe_liu") im = LBIE::Mesher::JOE_LIU;
-	else if(improve_method == "minimal_vol") im = LBIE::Mesher::MINIMAL_VOL;
-	else if(improve_method == "optimization") im = LBIE::Mesher::OPTIMIZATION;
-	else
-	  {
-	    cerr << "Error: invalid quality improvement method!" << endl;
-	    return EXIT_FAILURE;
-	  }
-	mesher.improveMethod(im);
-      
 	LBIE::geoframe g_frame;
 	g_frame.read_raw(input_file.c_str());
-	mesher.mesh(g_frame); //set the mesh to be improved
-	mesher.qualityImprove(improve_iterations);
-      
-	g_frame = mesher.mesh(); //get the mesh
+	g_frame = LBIE::quality_improve(g_frame, improve_method, improve_iterations, true);
 	g_frame.write_raw(output_file.c_str()); //write it out using geoframe's I/O
-
-	cout << "Wrote mesh: " << output_file << endl;
-      }
-    else
-      {
-	cerr << "Error: unknown operation '" << operation << "'" << endl;
-	return EXIT_FAILURE;
       }
   }
   catch(exception &e)
@@ -195,6 +101,4 @@ int main(int argc, char **argv)
       cerr << "Error: " << e.what() << endl;
       return EXIT_FAILURE;
     }
-
-  return EXIT_SUCCESS;
 }
